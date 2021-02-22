@@ -1,4 +1,4 @@
-glabal start
+global start
 
 section .text
 bits 32
