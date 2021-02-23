@@ -1,4 +1,5 @@
 global long_mode_start
+extern kernel_main
 
 section .text
 bits 64
@@ -10,8 +11,5 @@ long_mode_start:
     mov fs, ax
     mov gs, ax
 
-    ; print "OK"
-    mov dword [0xb8000], 0x2f452f48
-    mov dword [0xb8004], 0x2f452f20
-    mov dword [0xb8008], 0x2f4b2f4e
+    call kernel_main
     hlt
