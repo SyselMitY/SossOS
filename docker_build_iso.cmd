@@ -1,0 +1,1 @@
+docker run -v C:\Users\peter\Programmieren\SossOS:/root/env --env build_arg=build-x86_64 --rm sossos-buildenv
