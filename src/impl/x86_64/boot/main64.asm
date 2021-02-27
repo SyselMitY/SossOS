@@ -11,9 +11,39 @@ long_mode_start:
     mov fs, ax
     mov gs, ax
 
-
-
     call kernel_main
+
 .loop:
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
+    hlt
     hlt
     jmp .loop

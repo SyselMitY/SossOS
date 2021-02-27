@@ -189,7 +189,7 @@ irq15:
   iretq
  
 load_idt:
-	mov edx, [esp + 4]
-	lidt [edx]
+  mov rdx, [rsp + 8]
+	; lidt [edx]
 	sti
 	ret
