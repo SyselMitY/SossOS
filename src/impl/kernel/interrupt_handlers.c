@@ -1,6 +1,6 @@
 #include "print.h"
-extern void outb(unsigned char value, unsigned short port);
-extern unsigned char inb(unsigned short port);
+extern void outb(uint8_t value, uint16_t port);
+extern uint8_t inb(uint16_t port);
 
 void irq0_handler(void)
 {
@@ -9,9 +9,19 @@ void irq0_handler(void)
 
 void irq1_handler(void)
 {
-    
-    print_char(inb(0x60));
+    uint8_t status;
+    uint8_t keycode;
     outb(0x20, 0x20); //EOI
+
+    status = inb(0x64);
+
+    if(status & 0x01) {
+        keycode = inb(0x60);
+        if(keycode < 0)
+            return;
+        print_char('P');
+
+    }
 }
 
 void irq2_handler(void)

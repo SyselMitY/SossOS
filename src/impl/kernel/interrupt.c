@@ -1,11 +1,12 @@
 // https://wiki.osdev.org/Interrupts_tutorial
-extern void outb(unsigned char value, unsigned short port);
+#include <stdint.h>
+extern void outb(uint8_t value, unsigned short port);
 
 struct IDT_entry{
 	unsigned short int offset_lowerbits;
 	unsigned short int selector;
-	unsigned char zero;
-	unsigned char type_attr;
+	uint8_t zero;
+	uint8_t type_attr;
 	unsigned short int offset_higherbits;
 };
  
