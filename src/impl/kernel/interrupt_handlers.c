@@ -11,17 +11,17 @@ void irq1_handler(void)
 {
     uint8_t status;
     uint8_t keycode;
-    outb(0x20, 0x20); //EOI
 
     status = inb(0x64);
 
-    if(status & 0x01 || 1) {
+    if(status & 0x01) {
         keycode = inb(0x60);
         if(keycode < 0)
             return;
         print_char(keycode);
 
     }
+    outb(0x20, 0x20); //EOI
 }
 
 void irq2_handler(void)

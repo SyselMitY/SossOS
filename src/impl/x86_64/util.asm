@@ -8,6 +8,6 @@ out dx,al
 ret
 
 inb:
-mov rdx, rsi
+mov rdx, rdi
 in al, dx
 ret

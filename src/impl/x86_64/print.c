@@ -16,14 +16,13 @@ uint8_t color = PRINT_COLOR_WHITE | PRINT_COLOR_BLACK << 4;
 
 void clear_row(size_t row)
 {
-    struct Char empty = (struct Char){
-        character : ' ',
-        color : color,
-    };
+    struct Char empty;
+    empty.character = ' ';
+    empty.color = color;
 
-    for (size_t col = 0; col < NUM_COLS; col++)
+    for (size_t curCol = 0; curCol < NUM_COLS; curCol++)
     {
-        buffer[col + NUM_COLS * row] = empty;
+        buffer[curCol + NUM_COLS * row] = empty;
     }
 }
 
@@ -47,11 +46,14 @@ void print_newline()
 
     for (size_t row = 1; row < NUM_ROWS; row++)
     {
-        struct Char character = buffer[col + NUM_COLS * row];
-        buffer[col + NUM_COLS * (row - 1)] = character;
+        for (size_t curCol = 0; curCol < NUM_COLS; curCol++) {
+            struct Char character = buffer[curCol + NUM_COLS * row];
+            buffer[curCol + NUM_COLS * (row - 1)] = character;
+        }
+
     }
 
-    clear_row(NUM_COLS - 1);
+    clear_row(NUM_ROWS - 1);
 }
 
 void print_set_color(uint8_t fg, uint8_t bg)
@@ -72,10 +74,8 @@ void print_char(char character)
         print_newline();
     }
 
-    buffer[col + NUM_COLS * row] = (struct Char){
-        character : (uint8_t)character,
-        color : color,
-    };
+    buffer[col + NUM_COLS * row].character = (uint8_t)character;
+    buffer[col + NUM_COLS * row].color = color;
 
     col++;
 }
