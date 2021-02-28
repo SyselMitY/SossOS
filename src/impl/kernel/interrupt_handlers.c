@@ -1,5 +1,5 @@
 #include "print.h"
-extern void outb(uint8_t value, uint16_t port);
+extern void outb(uint16_t port, uint8_t value);
 extern uint8_t inb(uint16_t port);
 
 void irq0_handler(void)
@@ -19,7 +19,7 @@ void irq1_handler(void)
         keycode = inb(0x60);
         if(keycode < 0)
             return;
-        print_char('P');
+        print_char(keycode);
 
     }
 }
@@ -97,6 +97,12 @@ void irq14_handler(void)
 }
 
 void irq15_handler(void)
+{
+    outb(0xA0, 0x20);
+    outb(0x20, 0x20); //EOI
+}
+
+void generic_handler_impl(void)
 {
     outb(0xA0, 0x20);
     outb(0x20, 0x20); //EOI

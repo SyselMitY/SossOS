@@ -14,6 +14,7 @@ global irq12
 global irq13
 global irq14
 global irq15
+global generic_handler
  
 global load_idt
 
@@ -33,6 +34,7 @@ extern irq12_handler
 extern irq13_handler
 extern irq14_handler
 extern irq15_handler
+extern generic_handler_impl
  
 
 %macro pusha64 0
@@ -165,6 +167,12 @@ irq14:
 irq15:
   pusha64
   call irq15_handler
+  popa64
+  iretq
+
+generic_handler:
+  pusha64
+  call generic_handler_impl
   popa64
   iretq
  
