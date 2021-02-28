@@ -16,24 +16,7 @@ global irq14
 global irq15
  
 global load_idt
- 
-global irq0_handler
-global irq1_handler
-global irq2_handler
-global irq3_handler
-global irq4_handler
-global irq5_handler
-global irq6_handler
-global irq7_handler
-global irq8_handler
-global irq9_handler
-global irq10_handler
-global irq11_handler
-global irq12_handler
-global irq13_handler
-global irq14_handler
-global irq15_handler
- 
+
 extern irq0_handler
 extern irq1_handler
 extern irq2_handler
@@ -82,7 +65,6 @@ extern irq15_handler
     pop rdi
     pop rsi
     pop rbp
-    pop rbx
     pop rdx
     pop rcx
     pop rax
@@ -187,7 +169,6 @@ irq15:
   iretq
  
 load_idt:
-  mov rdx, [rsp + 8]
 	lidt [rsp + 8]
   sti
 	ret

@@ -32,11 +32,11 @@ void idt_init(void)
 
 	/* populate IDT entry of keyboard's interrupt */
 	keyboard_address = (uint64_t)irq1;
-	IDT[0x21].offset_1 = keyboard_address & 0xffff;
+	IDT[0x21].offset_1 = (keyboard_address & 0x000000000000ffff);
 	IDT[0x21].selector = 0x08; /* KERNEL_CODE_SEGMENT_OFFSET */
 	IDT[0x21].ist = 0;
 	IDT[0x21].type_attr = 0x8e; /* INTERRUPT_GATE */
-	IDT[0x21].offset_2 = (keyboard_address & 0xffff0000) >> 16;
+	IDT[0x21].offset_2 = (keyboard_address & 0x00000000ffff0000) >> 16;
 	IDT[0x21].offset_3 = (keyboard_address & 0xffffffff00000000) >> 32;
 
 
