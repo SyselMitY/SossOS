@@ -67,6 +67,7 @@ extern generic_handler_impl
     pop rdi
     pop rsi
     pop rbp
+    pop rbx
     pop rdx
     pop rcx
     pop rax

@@ -15,7 +15,7 @@ void irq1_handler(void)
 
     status = inb(0x64);
 
-    if(status & 0x01) {
+    if(status & 0x01 || 1) {
         keycode = inb(0x60);
         if(keycode < 0)
             return;

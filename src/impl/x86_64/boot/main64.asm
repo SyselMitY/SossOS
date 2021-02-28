@@ -15,4 +15,5 @@ long_mode_start:
 
 .loop:
     hlt
+    sti
     jmp .loop
