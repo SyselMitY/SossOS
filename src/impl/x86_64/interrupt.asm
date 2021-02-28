@@ -57,7 +57,6 @@ extern irq15_handler
     push rcx
     push rdx
     push rbx
-    push rsp
     push rbp
     push rsi
     push rdi
@@ -83,7 +82,6 @@ extern irq15_handler
     pop rdi
     pop rsi
     pop rbp
-    pop rsp
     pop rbx
     pop rdx
     pop rcx
@@ -190,6 +188,6 @@ irq15:
  
 load_idt:
   mov rdx, [rsp + 8]
-	; lidt [edx]
-	sti
+	lidt [rsp + 8]
+  sti
 	ret

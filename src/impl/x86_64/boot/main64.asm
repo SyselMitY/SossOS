@@ -15,35 +15,4 @@ long_mode_start:
 
 .loop:
     hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
-    hlt
     jmp .loop

@@ -1,5 +1,6 @@
 // https://wiki.osdev.org/Interrupts_tutorial
 #include <stdint.h>
+#include "print.h"
 extern void outb(uint8_t value, unsigned short port);
 
 void write_port(uint16_t port,uint8_t value) {
@@ -8,31 +9,36 @@ void write_port(uint16_t port,uint8_t value) {
 
 struct IDT_entry
 {
-	unsigned short int offset_lowerbits;
-	unsigned short int selector;
-	uint8_t zero;
+	uint16_t offset_1;
+	uint16_t selector;
+	uint8_t ist;
 	uint8_t type_attr;
-	unsigned short int offset_higherbits;
+	uint16_t offset_2;
+	uint32_t offset_3;
+	uint32_t zero;
 };
 
 struct IDT_entry IDT[256];
+extern int load_idt();
 
 void idt_init(void)
 {
 
-	unsigned long keyboard_address;
-	unsigned long idt_address;
-	unsigned long idt_ptr[2];
+	uint64_t keyboard_address;
+	uint64_t idt_address;
+	uint64_t idt_ptr[2];
 	extern void irq1();
 	uint16_t IDT_SIZE = 256;
 
 	/* populate IDT entry of keyboard's interrupt */
-	keyboard_address = (unsigned long)irq1;
-	IDT[0x21].offset_lowerbits = keyboard_address & 0xffff;
+	keyboard_address = (uint64_t)irq1;
+	IDT[0x21].offset_1 = keyboard_address & 0xffff;
 	IDT[0x21].selector = 0x08; /* KERNEL_CODE_SEGMENT_OFFSET */
-	IDT[0x21].zero = 0;
+	IDT[0x21].ist = 0;
 	IDT[0x21].type_attr = 0x8e; /* INTERRUPT_GATE */
-	IDT[0x21].offset_higherbits = (keyboard_address & 0xffff0000) >> 16;
+	IDT[0x21].offset_2 = (keyboard_address & 0xffff0000) >> 16;
+	IDT[0x21].offset_3 = (keyboard_address & 0xffffffff00000000) >> 32;
+
 
 	/*     Ports
 	*	 PIC1	PIC2
@@ -66,9 +72,10 @@ void idt_init(void)
 	write_port(0xA1, 0xff);
 
 	/* fill the IDT descriptor */
-	idt_address = (unsigned long)IDT;
-	idt_ptr[0] = (sizeof(struct IDT_entry) * IDT_SIZE) + ((idt_address & 0xffff) << 16);
-	idt_ptr[1] = idt_address >> 16;
-
+	idt_address = (uint64_t)IDT;
+	idt_ptr[0] = (sizeof(struct IDT_entry) * 8 * IDT_SIZE - 1) & 0xFFFF;
+	idt_ptr[0] = idt_ptr[0] | ((idt_address & 0xFFFFFFFFFFFF) << 16); 
+	idt_ptr[1] = idt_address >> 48;
+	print_num(idt_address);
 	load_idt(idt_ptr);
 }
