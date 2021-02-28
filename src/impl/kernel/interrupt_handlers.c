@@ -1,4 +1,5 @@
 #include "print.h"
+#include "keyboard.h"
 extern void outb(uint16_t port, uint8_t value);
 extern uint8_t inb(uint16_t port);
 
@@ -14,12 +15,12 @@ void irq1_handler(void)
 
     status = inb(0x64);
 
-    if(status & 0x01) {
+    if (status & 0x01)
+    {
         keycode = inb(0x60);
-        if(keycode < 0)
+        if (keycode < 0)
             return;
-        print_char(keycode);
-
+        print_char(keyboard_asciimap[keycode]);
     }
     outb(0x20, 0x20); //EOI
 }
