@@ -6,15 +6,15 @@ unsigned char keyboard_statusmap[128];
 unsigned char keyboard_asciimap[128] =
 {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
-  '9', '0', '-', '=', '\b',	/* Backspace */
+  '9', '0', 225, '´', '\b',	/* Backspace */
   '\t',			/* Tab */
   'q', 'w', 'e', 'r',	/* 19 */
-  't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',	/* Enter key */
+  't', 'z', 'u', 'i', 'o', 'p', 129, '+', '\n',	/* Enter key */
     0,			/* 29   - Control */
-  'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',	/* 39 */
- '\'', '`',   0,		/* Left shift */
- '\\', 'z', 'x', 'c', 'v', 'b', 'n',			/* 49 */
-  'm', ',', '.', '/',   0,				/* Right shift */
+  'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 148,	/* 39 */
+ 132, '`',   0,		/* Left shift */
+ '#', 'y', 'x', 'c', 'v', 'b', 'n',			/* 49 */
+  'm', ',', '.', '-',   0,				/* Right shift */
   '*',
     0,	/* Alt */
   ' ',	/* Space bar */
