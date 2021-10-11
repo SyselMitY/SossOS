@@ -1,6 +1,8 @@
 #include <stdint.h>
 #pragma once
 
+unsigned char keyboard_statusmap[128];
+
 unsigned char keyboard_asciimap[128] =
 {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */

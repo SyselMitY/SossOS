@@ -20,9 +20,36 @@ void irq1_handler(void)
         keycode = inb(0x60);
         if (keycode < 0)
             return;
-        print_char(keyboard_asciimap[keycode]);
+        
+        if(keycode & 0x80) {
+            keycode -= 0x80;
+            keyboard_statusmap[keycode] = 0;
+            printCharmap();
+        }
+        else {
+            if(keyboard_statusmap[keycode]==0){
+                keyboard_statusmap[keycode] = 1;
+                printCharmap();
+            }
+        }
+
     }
     outb(0x20, 0x20); //EOI
+}
+
+void printCharmap() {
+    print_clear();
+
+        for(int i=0;i<128;i++) {
+            if(i%8==0)
+                print_newline();
+            
+            char charToPrint = keyboard_asciimap[i];
+            print_char(charToPrint=='\n'?' ':charToPrint);
+            print_char(':');
+            print_char(keyboard_statusmap[i]?'1':'0');
+            print_char(' ');
+        }
 }
 
 void irq2_handler(void)

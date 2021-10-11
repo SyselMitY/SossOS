@@ -32,6 +32,8 @@ void print_clear()
     {
         clear_row(i);
     }
+    col = 0;
+    row = 0;
 }
 
 void print_newline()
